@@ -161,4 +161,3 @@ https://github.com/202618064-dau/202618064_DS605
 
 **Course:** DS605 – Data Science Lab
 
-**University:** CHRIST (Deemed to be University)
