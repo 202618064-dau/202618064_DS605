@@ -120,7 +120,13 @@ import joblib
 # --------------------------------------------------
 # Load trained pipeline
 # --------------------------------------------------
-model = joblib.load("airbnb_price_pipeline.pkl")
+import os
+import joblib
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "airbnb_price_pipeline.pkl")
+
+model = joblib.load(MODEL_PATH)
 
 # --------------------------------------------------
 # Page configuration
