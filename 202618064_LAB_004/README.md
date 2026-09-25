@@ -2,88 +2,104 @@
 
 ## DS605 – Fundamentals of Machine Learning | Lab Assignment 4
 
-### Live Dashboard Link - 
+An end-to-end machine learning project for predicting the nightly price of Airbnb listings in New York City using the Kaggle **AB_NYC_2019** dataset.
 
-An end-to-end machine learning project for predicting the nightly price of
-Airbnb listings in New York City using the Kaggle Airbnb Open Data dataset.
+## 🚀 Live Application
 
----
-
-## 📌 Project Objective
-
-The objective of this project is to build a complete machine learning workflow
-for Airbnb price prediction, including data preparation, feature engineering,
-model comparison, hyperparameter tuning, evaluation, and deployment through a
-Streamlit web application.
+🔗 **Streamlit App:**  
+https://202618064ds605-2l7bc4enqzj4admql2tnc4.streamlit.app/
 
 ---
 
-## 📊 Dataset
+## 📊 Project Overview
 
-**Dataset:** New York City Airbnb Open Data (`AB_NYC_2019.csv`)
+The project follows a complete machine learning workflow:
 
-The dataset contains information about Airbnb listings, including location,
-room type, minimum nights, reviews, availability, and price.
-
----
-
-## 🔍 Data Preparation
-
-The following preprocessing steps were performed:
-
-- Removed invalid zero-price listings.
-- Removed extreme upper-tail prices above the 99th percentile.
-- Handled missing values.
-- Dropped `last_review` due to substantial missingness.
-- Filled missing `reviews_per_month` with 0.
-- Removed identifier and high-cardinality text features.
-- Retained detailed neighbourhood information.
-- Applied log transformation to `minimum_nights`.
-- Applied scaling to numerical features.
-- Applied one-hot encoding to categorical features.
+- Data cleaning and missing-value handling
+- Outlier treatment
+- Exploratory data analysis
+- Feature selection and engineering
+- Data preprocessing
+- Regression model comparison
+- Hyperparameter tuning
+- Final model evaluation
+- Streamlit application development
+- Online deployment
 
 ---
 
-## 🤖 Models Compared
+## 🧹 Data Preparation
+
+Key preprocessing decisions:
+
+- Removed invalid listings with `price = 0`
+- Removed extreme prices above the 99th percentile
+- Filled missing `reviews_per_month` values with `0`
+- Removed `last_review`
+- Filled missing text values with `"Unknown"`
+- Removed high-cardinality identifiers such as `id` and `host_id`
+- Applied `log1p` transformation to `minimum_nights`
+- Applied one-hot encoding to categorical features
+- Standardized numerical features
+
+After outlier treatment, the dataset contained **48,410 listings**.
+
+---
+
+## 🤖 Model Comparison
 
 Three regression models were evaluated:
 
 | Model | Test MAE | Test RMSE | Test R² |
 |---|---:|---:|---:|
-| Linear Regression | 49.94 | 79.61 | 0.4175 |
-| Random Forest | 44.93 | 72.91 | 0.5115 |
-| Gradient Boosting | 46.38 | 75.51 | 0.4760 |
+| Linear Regression | $49.94 | $79.61 | 0.4175 |
+| Random Forest | $44.93 | $72.91 | 0.5115 |
+| Gradient Boosting | $46.38 | $75.51 | 0.4760 |
+
+Random Forest produced the best initial performance but showed overfitting.
+
+Hyperparameter tuning was therefore performed using `RandomizedSearchCV`.
 
 ### Final Model
 
-The **Tuned Random Forest Regressor** was selected as the final model.
+**Tuned Random Forest Regressor**
 
-**Final Test Performance:**
+- `n_estimators = 150`
+- `max_depth = 15`
+- `min_samples_split = 10`
+- `min_samples_leaf = 2`
+- `max_features = 0.5`
 
-- MAE: **43.82**
-- RMSE: **71.81**
-- R²: **0.5261**
+### Final Performance
 
-Hyperparameter tuning reduced overfitting and improved test performance.
+| Metric | Test Result |
+|---|---:|
+| MAE | **$43.82** |
+| RMSE | **$71.81** |
+| R² | **0.5261** |
+
+The tuned model reduced overfitting and improved test-set performance.
 
 ---
 
-## ⚙️ Final Machine Learning Pipeline
+## 🌐 Streamlit Application
 
-The final workflow combines preprocessing and the tuned Random Forest model
-into a single pipeline.
+The application accepts Airbnb listing information including:
 
-```text
-Raw Airbnb Input
-       ↓
-ColumnTransformer
-       ↓
-Numerical Scaling
-       ↓
-Log Transformation
-       ↓
-One-Hot Encoding
-       ↓
-Tuned Random Forest
-       ↓
-Estimated Nightly Price
+- Neighbourhood group
+- Neighbourhood
+- Latitude and longitude
+- Room type
+- Minimum nights
+- Number of reviews
+- Reviews per month
+- Host listing count
+- Availability
+
+It then returns an estimated nightly Airbnb price.
+
+The saved preprocessing and model are combined into a single pipeline to ensure consistent processing of new inputs.
+
+---
+Gauri Dawar
+202618064
