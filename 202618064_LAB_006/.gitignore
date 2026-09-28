@@ -1,0 +1,25 @@
+# Datasets
+448/
+emails.csv
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Kaggle
+.kaggle/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
