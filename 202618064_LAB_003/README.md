@@ -1,110 +1,176 @@
-# DS605 Lab 3 - Scikit-learn Preprocessing and Model Evaluation
+# DS605 Lab 3: Data Preprocessing and Model Performance Evaluation
 
-## Student Details
+**Name: Gauri Dawar**
 
+<<<<<<< HEAD
 **Name:** Gauri Dawar  
 **ID:** 202618064  
+=======
+**ID: 202618064**
+>>>>>>> cb75716a6abeba784c4a87caf0ecdae7d2e67adb
 
----
+## Overview
 
-## Objective
+This lab explores how data preprocessing techniques affect machine learning model performance using **Scikit-learn**. The project uses a hotel booking dataset to predict whether a hotel reservation will be canceled.
 
-The aim of this lab is to preprocess the Hotel Booking Demand dataset using
-Scikit-learn and compare Logistic Regression and Decision Tree models using
-different preprocessing pipelines.
+Two preprocessing pipelines are developed and compared:
+
+- **Pipeline A:** KNN imputation, StandardScaler, and OneHotEncoder.
+- **Pipeline B:** KNN imputation, MinMaxScaler, and OneHotEncoder.
+
+Logistic Regression and Decision Tree classifiers are trained with both pipelines, and their performance is evaluated using multiple classification metrics.
+
+## Objectives
+
+- Load and explore a real-world dataset using Pandas.
+- Identify missing values, data leakage, and extreme outliers.
+- Build preprocessing pipelines using `Pipeline` and `ColumnTransformer`.
+- Handle numerical and categorical features appropriately.
+- Compare StandardScaler and MinMaxScaler.
+- Train Logistic Regression and Decision Tree classifiers.
+- Evaluate models using accuracy, precision, recall, F1-score, and confusion matrices.
+- Identify the best-performing preprocessing and model combination.
 
 ## Dataset
 
-Dataset: Hotel Booking Demand
+**Dataset:** `hotel_bookings.csv`
 
-Source: Kaggle - Hotel Booking Demand Dataset
+The dataset contains hotel reservation information, including booking lead time, length of stay, number of guests, average daily rate, customer type, and other booking-related attributes.
 
-The dataset used in this lab is `hotel_bookings.csv`.
+**Target variable:** `is_canceled`
 
----
+- `0` — Booking was not canceled.
+- `1` — Booking was canceled.
 
-## Tasks Covered
+The task is a **binary classification problem**.
 
-### Task 1 - Data Loading and Understanding
-- Loaded and explored the dataset.
-- Checked the shape, data types and basic statistics.
-- Checked the distribution of `is_canceled`.
-- Used `is_canceled` as the target variable.
-- Separated numerical and categorical features.
+## Project Workflow
 
-### Task 2 - Missing Values, Leakage and Outliers
-- Checked missing values in the dataset.
-- Removed columns that could reveal the booking outcome:
-  `reservation_status` and `reservation_status_date`.
-- Checked selected numerical features using boxplots and IQR.
-- Removed only the extreme outliers considered unsuitable for modelling.
+### Part A — Data Loading and Preprocessing
 
-### Task 3 - Preprocessing Pipelines
+#### 1. Data Exploration
 
-Two preprocessing pipelines were created.
+- Loaded the dataset using Pandas.
+- Examined the dataset's shape, data types, summary statistics, and target class distribution.
+- Separated the target variable (`is_canceled`) from the input features.
+- Identified numerical and categorical columns.
 
-**Pipeline A**
-- KNNImputer
-- StandardScaler
+#### 2. Missing-Value Handling
 
-**Pipeline B**
-- KNNImputer
-- MinMaxScaler
+The missing-value analysis identified `company` as a highly incomplete feature, with approximately **94.31% missing values**.
 
-For categorical columns:
-- SimpleImputer with `most_frequent`
-- OneHotEncoder with `handle_unknown="ignore"`
+- Dropped `company` because of its extremely high missingness.
+- Retained other features with missing values for appropriate imputation.
+- Used `KNNImputer` with five neighbors for numerical features.
+- Used `SimpleImputer(strategy="most_frequent")` for categorical features.
 
-ColumnTransformer was used to apply different preprocessing methods to
-numerical and categorical columns.
+#### 3. Data Leakage Prevention
 
-### Task 4 - Classification Models
+Removed the following columns:
 
-Two classification models were trained:
+- `reservation_status`
+- `reservation_status_date`
+
+These features can reveal information about the booking outcome after it occurs. Keeping them could lead to misleadingly high performance and poor real-world generalization.
+
+#### 4. Outlier Detection and Treatment
+
+Used boxplots to inspect selected numerical features, including `adr`, `lead_time`, and length-of-stay variables.
+
+Extreme values were filtered using the **Interquartile Range (IQR) method with a multiplier of 3**, focusing on unusually extreme observations rather than aggressively removing natural variation.
+
+After cleaning, the dataset contained **87,289 rows and 28 input features**, excluding the target variable.
+
+#### 5. Train-Test Split
+
+The data was split using an 80:20 train-test split with stratification on `is_canceled` and `random_state=42`.
+
+Stratification helps preserve the target class distribution in both sets.
+
+### Part B — Preprocessing Pipelines
+
+Two pipelines were created to compare numerical scaling methods while keeping the remaining preprocessing steps consistent.
+
+| Processing step | Pipeline A | Pipeline B |
+|---|---|---|
+| Numerical missing values | KNNImputer, 5 neighbors | KNNImputer, 5 neighbors |
+| Numerical scaling | StandardScaler | MinMaxScaler |
+| Categorical missing values | Most frequent value | Most frequent value |
+| Categorical encoding | OneHotEncoder | OneHotEncoder |
+
+**StandardScaler** standardizes numerical features to have a mean of approximately zero and a standard deviation of one.
+
+**MinMaxScaler** scales numerical features to a fixed range, by default between zero and one.
+
+`ColumnTransformer` applies the appropriate transformations to each feature type, while `Pipeline` combines preprocessing and model training into a single workflow.
+
+Fitting the pipelines on training data and applying the learned transformations to test data helps prevent preprocessing data leakage.
+
+### Part C — Model Training and Evaluation
+
+Two classification algorithms were evaluated:
 
 1. Logistic Regression
 2. Decision Tree Classifier
 
-The same train-test split was used for all four experiments.
+Each classifier was combined with both preprocessing pipelines, resulting in four model-pipeline combinations.
 
-### Task 5 - Model Evaluation
+The evaluation metrics were:
 
-The models were compared using:
+- **Accuracy:** Overall proportion of correct predictions.
+- **Precision:** Proportion of predicted cancellations that were actual cancellations.
+- **Recall:** Proportion of actual cancellations correctly identified.
+- **F1-score:** Harmonic mean of precision and recall.
+- **Confusion matrix:** Breakdown of correct and incorrect predictions for each class.
 
-- Training Accuracy
-- Testing Accuracy
-- Precision
-- Recall
-- F1-score
+Training accuracy was also compared with test accuracy to identify possible overfitting.
 
-Confusion matrices were also created for the best Logistic Regression
-and Decision Tree results.
+## Results and Observations
 
----
+The notebook's reported results are summarized below.
 
-## Final Results
+| Model and preprocessing | Test accuracy | F1-score |
+|---|---:|---:|
+| Logistic Regression + StandardScaler | 81.31% | 0.744 |
+| Logistic Regression + MinMaxScaler | 80.83% | 0.737 |
+| Decision Tree + StandardScaler | 85.63% | 0.819 |
+| Decision Tree + MinMaxScaler | 85.62% | Approximately 0.819 |
 
-Overall, Decision Tree with StandardScaler performed the best. Scaling made a small difference to Logistic Regression but almost no difference to Decision Tree. The Decision Tree also shows some overfitting because its training accuracy is much higher than its test accuracy.
+*Values are reported from the notebook's observations and may be rounded.*
 
-## Final Observations
+### Key Findings
 
-1. Decision Tree with Pipeline A gave the best overall result with a test
-   accuracy of 85.63% and F1-score of 0.8185.
+- **Best overall combination:** Decision Tree with Pipeline A (StandardScaler), with 85.63% test accuracy and an F1-score of 0.819.
+- **Effect on Logistic Regression:** StandardScaler performed slightly better than MinMaxScaler.
+- **Effect on Decision Tree:** The choice of scaler had almost no impact on test performance.
+- **Overfitting:** The Decision Tree's substantially higher training accuracy than test accuracy suggests possible overfitting.
+- **Importance of preprocessing:** Correctly handling missing values, categorical variables, extreme values, and data leakage is essential for a meaningful model comparison.
 
-2. Logistic Regression performed slightly better with StandardScaler than
-   with MinMaxScaler.
+## Technologies Used
 
-3. Scaling had almost no effect on the Decision Tree because its results
-   with both pipelines were nearly the same.
+- Python
+- NumPy
+- Pandas
+- Matplotlib
+- Seaborn
+- Scikit-learn
+- Jupyter Notebook
 
-4. The Decision Tree correctly classified more cancelled and non-cancelled
-   bookings according to the confusion matrix.
+## Project Structure
 
-5. The Decision Tree has a high training accuracy compared to its test
-   accuracy, which indicates some overfitting.
+```text
+202618064_LAB_003/
+├── 202618064_lab3.ipynb
+├── hotel_bookings.csv
+└── README.md
+```
+
 
 ## Conclusion
 
-Overall, the Decision Tree with Pipeline A performed best among the four
-experiments. StandardScaler was slightly more useful for Logistic Regression,
-while changing the scaler made almost no difference to the Decision Tree.
+This lab demonstrates how preprocessing decisions influence classification performance. Comparing StandardScaler and MinMaxScaler showed that the scaling method affected Logistic Regression slightly but had virtually no effect on the Decision Tree.
+
+Among the four tested combinations, **Decision Tree with StandardScaler achieved the best reported test accuracy and F1-score**. Its train-test performance gap also highlighted the importance of checking for overfitting rather than relying on test accuracy alone.
+
+Overall, the experiment emphasizes the importance of building reliable preprocessing pipelines, preventing data leakage, and evaluating models using multiple performance metrics.
+

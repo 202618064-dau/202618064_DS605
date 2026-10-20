@@ -52,7 +52,7 @@ Extract the dataset into an `att_faces/` directory inside the project folder. Th
 | PCA + SVM (RBF) | 98.33% |
 | PCA + Logistic Regression | 99.17% |
 
-The best observed tuned configuration was Logistic Regression with 28 PCA components and `C=1`, achieving 97.50% mean cross-validation accuracy and 99.17% test accuracy.
+The best observed tuned configuration was **Logistic Regression with 28 PCA components** and `C=1`, achieving 97.50% mean cross-validation accuracy and 99.17% test accuracy.
 
 These results apply to the current train-test split and tested configurations.
 
@@ -62,15 +62,6 @@ These results apply to the current train-test split and tested configurations.
 202618064_LAB_007/
 ├── att_faces/                     # Local dataset, excluded from Git
 ├── outputs/
-│   ├── mean_face.png
-│   ├── explained_variance.png
-│   ├── eigenfaces.png
-│   ├── reconstruction.png
-│   ├── recognition_matches.png
-│   ├── component_comparison.png
-│   ├── classifier_comparison.csv
-│   ├── component_experiments.csv
-│   └── hyperparameter_tuning.csv
 ├── 202618064_lab7.ipynb
 ├── requirements.txt
 ├── .gitignore
