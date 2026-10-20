@@ -1,0 +1,7 @@
+Components,Model,Best CV Accuracy,Test Accuracy,Best Parameters
+28,KNN,0.95,0.9666666666666667,{'n_neighbors': 1}
+28,SVM,0.9714285714285713,0.9833333333333333,"{'C': 10, 'gamma': 'scale'}"
+28,Logistic Regression,0.975,0.9916666666666667,{'C': 1}
+92,KNN,0.9571428571428571,0.975,{'n_neighbors': 1}
+92,SVM,0.9714285714285713,0.9833333333333333,"{'C': 10, 'gamma': 'scale'}"
+92,Logistic Regression,0.9714285714285713,0.9916666666666667,{'C': 1}

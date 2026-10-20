@@ -1,0 +1,6 @@
+Method,Accuracy
+Raw-pixel nearest face,0.975
+PCA nearest face,0.975
+PCA + KNN (k=3),0.9333333333333333
+PCA + SVM (RBF),0.9833333333333333
+PCA + Logistic Regression,0.9916666666666667
