@@ -1,5 +1,9 @@
 # DS605 Lab 2: NumPy Vectorization and Pandas Data Wrangling
 
+**Name: Gauri Dawar**
+
+**ID: 202618064**
+
 ## Overview
 
 This lab focuses on numerical computing with **NumPy** and data manipulation, analysis, and visualization with **Pandas**. The first part explores array operations, statistical calculations, and linear algebra. The second part applies data-wrangling techniques to the Titanic dataset to investigate passenger survival patterns.
