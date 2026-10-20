@@ -2,12 +2,8 @@
 
 **Name: Gauri Dawar**
 
-<<<<<<< HEAD
-**Name:** Gauri Dawar  
-**ID:** 202618064  
-=======
 **ID: 202618064**
->>>>>>> cb75716a6abeba784c4a87caf0ecdae7d2e67adb
+
 
 ## Overview
 
