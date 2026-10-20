@@ -1,6 +1,7 @@
 # DS605 Lab 7: Image Representation, PCA and Face Recognition
 
-**Student ID:** 202618064
+**Name: Gauri Dawar**
+**ID: 202618064**
 
 ## Overview
 
@@ -85,14 +86,6 @@ These results apply to the current train-test split and tested configurations.
 - Scikit-learn
 - Pandas
 - Jupyter
-
-Install the dependencies with:
-
-```bash
-python -m pip install -r requirements.txt
-```
-
-Open `202618064_lab7.ipynb` in VS Code and run the cells from top to bottom after downloading and extracting the dataset.
 
 ## Conclusion
 

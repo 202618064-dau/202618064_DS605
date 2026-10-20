@@ -4,8 +4,6 @@
 
 **Name:** Gauri Dawar  
 **ID:** 202618064  
-**Course:** MSc Data Science  
-**Subject:** DS605 - Fundamentals of Machine Learning
 
 ---
 
