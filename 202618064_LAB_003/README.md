@@ -1,6 +1,7 @@
 # DS605 Lab 3: Data Preprocessing and Model Performance Evaluation
 
 **Name: Gauri Dawar**
+
 **ID: 202618064**
 
 ## Overview
@@ -159,46 +160,6 @@ The notebook's reported results are summarized below.
 └── README.md
 ```
 
-The dataset is required to run the notebook. If it is not included in the repository, download it separately and place it in the project directory.
-
-## How to Run
-
-### 1. Clone the repository
-
-```bash
-git clone <your-public-repository-url>
-cd 202618064_LAB_003
-```
-
-### 2. Create and activate a virtual environment (optional)
-
-```bash
-python -m venv .venv
-```
-
-On Windows:
-
-```bash
-.venv\Scripts\activate
-```
-
-### 3. Install dependencies
-
-```bash
-pip install numpy pandas matplotlib seaborn scikit-learn jupyter
-```
-
-### 4. Add the dataset
-
-Place `hotel_bookings.csv` in the project directory, alongside the notebook.
-
-### 5. Run the notebook
-
-```bash
-jupyter notebook 202618064_lab3.ipynb
-```
-
-Execute the cells sequentially to reproduce the preprocessing, model training, evaluation metrics, and confusion matrices.
 
 ## Conclusion
 
